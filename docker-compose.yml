@@ -49,6 +49,16 @@ services:
     networks:
       - cht-watchdog-net
     restart: always
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - cht-watchdog-net
 
   json-exporter:
     image: prometheuscommunity/json-exporter:${JSON_EXPORTER_VERSION:-v0.6.0}
